@@ -15,18 +15,13 @@ class SecretView extends Component {
     super(props);
     this.state = {
       liked: false,
+      numLikes: 101,
     };
   }
 
   render() {
     return (
       <View
-        // source={{
-        //   uri:
-        //     "https://picsum.photos/1600" +
-        //     "?random_number=" +
-        //     Math.floor(Math.random() * 34567),
-        // }}
         style={{
           width: "100%",
           height: 240,
@@ -44,23 +39,37 @@ class SecretView extends Component {
             padding: 20,
           }}
         >
-          {this.props.item["secret"]}y
+          {this.props.item["secret"]}
         </Text>
-        <TouchableOpacity
+        <View
           style={{
-            // borderWidth: 1,
-            // borderColor: "green",
             width: 40,
             height: 40,
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-          onPress={() => {
-            return this.setState({ liked: !this.state.liked });
+            flexDirection: "row",
           }}
         >
-          <Heart filled={this.state.liked} />
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              justifyContent: "center",
+              paddingLeft: 14,
+              paddingRight: 4,
+            }}
+            onPress={() => {
+              return this.setState({ liked: !this.state.liked });
+            }}
+          >
+            <Heart filled={this.state.liked} />
+          </TouchableOpacity>
+          <Text
+            style={{
+              alignItems: "center",
+              paddingTop: 6,
+              paddingLeft: 4,
+            }}
+          >
+            {this.state.numLikes}
+          </Text>
+        </View>
       </View>
     );
   }

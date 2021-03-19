@@ -14,6 +14,9 @@ import {
 } from "react-native";
 import { getDeviceId } from "../identity/DeviceId";
 import SecretView from "./SecretView";
+import LottieView from "lottie-react-native";
+const BACKGROUND_COLOR = "#DEE5E5";
+const BUTTON_COLOR = "#17B890";
 
 class Homescreen extends Component {
   constructor(props) {
@@ -28,7 +31,7 @@ class Homescreen extends Component {
   componentDidMount() {
     getDeviceId()
       .then((deviceId) => {
-        this.setState({ deviceId: deviceId, loading: false });
+        this.setState({ deviceId: deviceId });
         return axios.get("http://3.138.202.134:3000/api/listSecrets");
       })
       .then((response) => {
@@ -41,18 +44,10 @@ class Homescreen extends Component {
 
   render() {
     const loading = this.state.loading;
+
     if (loading) {
-      text = (
-        <Text onPress={() => this.setState({ deviceId: "bbbbb" })}>
-          Loading
-        </Text>
-      );
-    } else {
-      text = (
-        <Text onPress={() => this.setState({ deviceId: "bbbbb" })}>
-          {this.state.deviceId}
-        </Text>
-      );
+      const loadingLottie = require("./loading.json");
+      return <LottieView source={loadingLottie} autoPlay loop />;
     }
     return (
       <SafeAreaView style={styles.container}>
@@ -63,14 +58,16 @@ class Homescreen extends Component {
           <Text style={styles.buttonTextStyle}>Share your secret</Text>
         </TouchableOpacity>
         <FlatList
-          style={{ width: "100%", paddingLeft: 20, paddingRight: 20 }}
+          style={{
+            width: "100%",
+            paddingLeft: 20,
+            paddingRight: 20,
+          }}
           data={this.state.secrets.map((s) => {
             return { ...s, key: s.secretId };
           })}
           renderItem={({ item }) => <SecretView item={item} />}
         />
-
-        <StatusBar style="auto" />
       </SafeAreaView>
     );
   }
@@ -78,30 +75,28 @@ class Homescreen extends Component {
 
 const styles = StyleSheet.create({
   buttonTextStyle: {
-    color: "white",
+    color: BACKGROUND_COLOR,
     fontSize: 20,
   },
   buttonStyle: {
-    backgroundColor: "green",
-    paddingTop: 20,
-    paddingBottom: 20,
+    backgroundColor: BUTTON_COLOR,
+    paddingTop: 10,
+    paddingBottom: 10,
     paddingRight: 6,
     paddingLeft: 6,
     marginTop: 10,
     marginBottom: 10,
     width: 200,
-    height: 30,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 10,
+    borderRadius: 20,
   },
   container: {
     flex: 1,
-    backgroundColor: "#C51E3A",
+    backgroundColor: BACKGROUND_COLOR,
     alignItems: "center",
     justifyContent: "center",
-    paddingTop: 10,
-    paddingBottom: 10,
+    paddingTop: 30,
   },
 });
 

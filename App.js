@@ -32,7 +32,12 @@ class App extends Component {
     const Stack = createStackNavigator();
     return (
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator
+          initialRouteName="Home"
+          screenOptions={{
+            headerShown: false,
+          }}
+        >
           <Stack.Screen
             name="Home"
             component={Homescreen}
