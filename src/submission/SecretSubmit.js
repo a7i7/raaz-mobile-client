@@ -2,21 +2,22 @@ import { StatusBar } from "expo-status-bar";
 import React, { useState, Component } from "react";
 import {
   View,
-  SafeAreaView,
   TextInput,
   Text,
   StyleSheet,
   TouchableOpacity,
-  ImageBackground,
 } from "react-native";
 import axios from "axios";
 import LottieView from "lottie-react-native";
 import { getDeviceId } from "../identity/DeviceId";
+import FlashMessage from "react-native-flash-message";
+import { showMessage } from "react-native-flash-message";
 
 const BACKGROUND_COLOR = "#DEE5E5";
 const BUTTON_COLOR = "#17B890";
 const BUTTON_TEXT_COLOR = "#DEE5E5";
 const MAX_LENGTH = 240;
+
 class SecretSubmit extends Component {
   constructor(props) {
     super(props);
@@ -45,67 +46,93 @@ class SecretSubmit extends Component {
             submissionState: "SUBMITTED",
           });
         },
-
         (err) => {
+          showMessage({
+            message: "Something went wrong! Please try again.",
+            type: "danger",
+          });
           this.setState({
-            submissionState: "FAILED",
+            submissionState: "INITIAL",
           });
         }
       );
   }
+
+  _success() {
+    const loadingLottie = require("./success.json");
+
+    return (
+      <LottieView
+        source={loadingLottie}
+        autoPlay={true}
+        loop={false}
+        speed={1.5}
+        onAnimationFinish={() => {
+          this.props.navigation.goBack(null);
+        }}
+      />
+    );
+  }
   render() {
     if (this.state.submissionState == "SUBMITTED") {
-      const loadingLottie = require("./success.json");
-
-      return (
-        <LottieView
-          source={loadingLottie}
-          autoPlay={true}
-          loop={false}
-          speed={1.5}
-          onAnimationFinish={() => {
-            this.props.navigation.goBack(null);
-          }}
-        />
-      );
+      return this._success();
     }
     return (
       <View style={styles.container}>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.cancelButtonStyle}
-            onPress={() => this.props.navigation.goBack(null)}
-          >
-            <Text style={styles.cancelButtonTextStyle}>Cancel</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.buttonStyle}
-            onPress={() => this.submit(this.state.text)}
-          >
-            <Text style={styles.buttonTextStyle}>Submit</Text>
-          </TouchableOpacity>
-        </View>
-        <Text style={styles.characterCountStyle}>
-          {this.state.numChars}/{MAX_LENGTH}
-        </Text>
-        <View style={styles.submissionContainer}>
-          <TextInput
-            style={styles.textBox}
-            multiline={true}
-            maxLength={MAX_LENGTH}
-            autoFocus={true}
-            editable={
-              this.state.submissionState == "INITIAL" ||
-              this.state.submissionState == "SUBMITTED"
-            }
-            onChangeText={(text) =>
-              this.setState({
-                numChars: text.length,
-                text: text,
-              })
-            }
-          />
-        </View>
+        {this.buttonPanel()}
+        {this.characterCounter()}
+        {this.secretInput()}
+        <FlashMessage position="top" ref="myLocalFlashMessage" />
+      </View>
+    );
+  }
+
+  characterCounter() {
+    return (
+      <Text style={styles.characterCountStyle}>
+        {this.state.numChars}/{MAX_LENGTH}
+      </Text>
+    );
+  }
+
+  buttonPanel() {
+    return (
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.cancelButtonStyle}
+          onPress={() => this.props.navigation.goBack(null)}
+        >
+          <Text style={styles.cancelButtonTextStyle}>Cancel</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonStyle}
+          onPress={() => this.submit(this.state.text)}
+        >
+          <Text style={styles.buttonTextStyle}>Submit</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
+  secretInput() {
+    return (
+      <View style={styles.submissionContainer}>
+        <TextInput
+          style={styles.textBox}
+          multiline={true}
+          maxLength={MAX_LENGTH}
+          autoFocus={true}
+          editable={
+            this.state.submissionState == "INITIAL" ||
+            this.state.submissionState == "SUBMITTED"
+          }
+          onChangeText={(text) =>
+            this.setState({
+              numChars: text.length,
+              text: text,
+            })
+          }
+        />
       </View>
     );
   }

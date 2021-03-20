@@ -19,6 +19,7 @@ import SecretView from "./src/homescreen/SecretView";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import SecretSubmit from "./src/submission/SecretSubmit";
+
 import Homescreen from "./src/homescreen/Homescreen";
 
 class App extends Component {
