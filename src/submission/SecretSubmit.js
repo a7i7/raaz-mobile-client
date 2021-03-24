@@ -79,23 +79,23 @@ class SecretSubmit extends Component {
     }
     return (
       <View style={styles.container}>
-        {this.buttonPanel()}
-        {this.characterCounter()}
-        {this.secretInput()}
+        {this._buttonPanel()}
+        {this._characterCounter()}
+        {this._secretInput()}
         <FlashMessage position="top" ref="myLocalFlashMessage" />
       </View>
     );
   }
 
-  characterCounter() {
+  _characterCounter() {
     return (
       <Text style={styles.characterCountStyle}>
-        {this.state.numChars}/{MAX_LENGTH}
+        {MAX_LENGTH - this.state.numChars} characters left
       </Text>
     );
   }
 
-  buttonPanel() {
+  _buttonPanel() {
     return (
       <View style={styles.buttonContainer}>
         <TouchableOpacity
@@ -114,7 +114,7 @@ class SecretSubmit extends Component {
     );
   }
 
-  secretInput() {
+  _secretInput() {
     return (
       <View style={styles.submissionContainer}>
         <TextInput
@@ -170,8 +170,9 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   characterCountStyle: {
-    marginLeft: 20,
+    marginLeft: 10,
     marginTop: 20,
+    color: "#2E86AB",
   },
   textBoxBackground: {
     marginRight: 20,

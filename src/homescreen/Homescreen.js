@@ -44,7 +44,6 @@ class Homescreen extends Component {
 
   render() {
     const loading = this.state.loading;
-
     if (loading) {
       const loadingLottie = require("./loading.json");
       return <LottieView source={loadingLottie} autoPlay loop />;
@@ -57,6 +56,7 @@ class Homescreen extends Component {
         >
           <Text style={styles.buttonTextStyle}>Share your secret</Text>
         </TouchableOpacity>
+
         <FlatList
           style={{
             width: "100%",
