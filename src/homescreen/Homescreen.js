@@ -14,7 +14,7 @@ import {
 import { getDeviceId } from "../identity/DeviceId";
 import SecretView from "./SecretView";
 import LottieView from "lottie-react-native";
-import ABC from "./StripeModule";
+import Stripe from "./StripeModule";
 
 const BACKGROUND_COLOR = "#DEE5E5";
 const BUTTON_COLOR = "#17B890";
@@ -44,7 +44,7 @@ class Homescreen extends Component {
   }
 
   render() {
-    ABC.show();
+    Stripe.show();
     const loading = this.state.loading;
     if (loading) {
       const loadingLottie = require("./loading.json");

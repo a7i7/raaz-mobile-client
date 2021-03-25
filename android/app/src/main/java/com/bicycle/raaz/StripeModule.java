@@ -22,7 +22,7 @@ class StripeModule extends ReactContextBaseJavaModule {
 
     @Override
     public String getName() {
-        return "ABC";
+        return "Stripe";
     }
 
 }
