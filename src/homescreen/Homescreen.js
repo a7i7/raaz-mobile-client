@@ -2,7 +2,6 @@ import { StatusBar } from "expo-status-bar";
 import React, { useState, Component } from "react";
 import axios from "axios";
 import {
-  SafeAreaView,
   StyleSheet,
   ScrollView,
   View,
@@ -15,6 +14,8 @@ import {
 import { getDeviceId } from "../identity/DeviceId";
 import SecretView from "./SecretView";
 import LottieView from "lottie-react-native";
+import ABC from "./StripeModule";
+
 const BACKGROUND_COLOR = "#DEE5E5";
 const BUTTON_COLOR = "#17B890";
 
@@ -43,13 +44,14 @@ class Homescreen extends Component {
   }
 
   render() {
+    ABC.show();
     const loading = this.state.loading;
     if (loading) {
       const loadingLottie = require("./loading.json");
       return <LottieView source={loadingLottie} autoPlay loop />;
     }
     return (
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <TouchableOpacity
           style={styles.buttonStyle}
           onPress={() => this.props.navigation.navigate("Submit")}
@@ -68,7 +70,7 @@ class Homescreen extends Component {
           })}
           renderItem={({ item }) => <SecretView item={item} />}
         />
-      </SafeAreaView>
+      </View>
     );
   }
 }

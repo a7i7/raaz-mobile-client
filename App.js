@@ -2,7 +2,6 @@ import { StatusBar } from "expo-status-bar";
 import React, { useState, Component } from "react";
 import axios from "axios";
 import {
-  SafeAreaView,
   StyleSheet,
   ScrollView,
   View,
