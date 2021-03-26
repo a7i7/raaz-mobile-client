@@ -18,6 +18,7 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "~0.63.4",
+    "react-native-credit-card-input": "^0.4.1",
     "react-native-elements": "^3.3.1",
     "react-native-flash-message": "^0.1.23",
     "react-native-fs": "^2.16.6",

@@ -6,7 +6,6 @@ import {
   ScrollView,
   View,
   Text,
-  Button,
   FlatList,
   ImageBackground,
   TouchableOpacity,
@@ -15,7 +14,12 @@ import { getDeviceId } from "../identity/DeviceId";
 import SecretView from "./SecretView";
 import LottieView from "lottie-react-native";
 import Stripe from "./StripeModule";
-
+import Button from "./Button";
+import {
+  CreditCardInput,
+  LiteCreditCardInput,
+} from "react-native-credit-card-input";
+import Payment from "../payment/Payment";
 const BACKGROUND_COLOR = "#DEE5E5";
 const BUTTON_COLOR = "#17B890";
 
@@ -44,11 +48,26 @@ class Homescreen extends Component {
   }
 
   render() {
-    Stripe.show();
+    // Stripe.show();
     const loading = this.state.loading;
     if (loading) {
       const loadingLottie = require("./loading.json");
       return <LottieView source={loadingLottie} autoPlay loop />;
+    }
+    if (false) {
+      return (
+        <Button
+          style={{
+            backgroundColor: BACKGROUND_COLOR,
+            width: "100%",
+            height: "100%",
+            paddingTop: 30,
+          }}
+        />
+      );
+    }
+    if (true) {
+      return <Payment />;
     }
     return (
       <View style={styles.container}>

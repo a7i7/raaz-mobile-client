@@ -1,20 +1,5 @@
-import { StatusBar } from "expo-status-bar";
-import React, { useState, Component } from "react";
-import axios from "axios";
-import {
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  Button,
-  FlatList,
-  ImageBackground,
-  TouchableOpacity,
-} from "react-native";
-// import { Card, ListItem, Icon } from "react-native-elements";
-import { Card, Title, Paragraph, Image } from "react-native-paper";
-import { getDeviceId } from "./src/identity/DeviceId";
-import SecretView from "./src/homescreen/SecretView";
+import React, { Component } from "react";
+import { StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import SecretSubmit from "./src/submission/SecretSubmit";
